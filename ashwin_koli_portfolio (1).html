@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashwin Koli — Android Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg-void: #070d17;
+    --bg-panel: #0d1524;
+    --bg-panel-raised: #121b2e;
+    --sky-dusk: #ff9a5c;
+    --sky-dusk-soft: #ffb98a;
+    --blue-glow: #5aa9ff;
+    --blue-dim: #2c4a73;
+    --droid-green: #4fce6a;
+    --text-hi: #eef2f8;
+    --text-mid: #a9b6cc;
+    --text-low: #62708a;
+    --rule: #1c2740;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg-void);
+    color: var(--text-hi);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--blue-dim); color: var(--text-hi); }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(7,13,23,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content: space-between;
+    padding-top: 16px; padding-bottom: 16px;
+  }
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+  .brand span{ color: var(--droid-green); }
+  .navlinks{ display:flex; gap: 28px; font-size: 0.9rem; }
+  .navlinks a{ text-decoration:none; color: var(--text-mid); transition: color .2s; }
+  .navlinks a:hover{ color: var(--text-hi); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 88px 0 96px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(255,154,92,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 110%, rgba(90,169,255,0.10), transparent 60%);
+  }
+  .hero .skyline{
+    position:absolute; inset:auto 0 0 0; height: 140px;
+    opacity: 0.5;
+    background: linear-gradient(180deg, transparent, rgba(90,169,255,0.05));
+    pointer-events:none;
+  }
+  .kicker{
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--sky-dusk-soft);
+    font-size: 0.82rem;
+    margin: 0 0 18px;
+  }
+  h1.name{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(3rem, 8vw, 5.2rem);
+    line-height: 0.98;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .role{
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    color: var(--text-mid);
+    font-weight: 500;
+    margin: 0 0 26px;
+    max-width: 34ch;
+  }
+  .tagline{
+    max-width: 52ch;
+    color: var(--text-mid);
+    font-size: 1.02rem;
+    margin: 0 0 36px;
+  }
+  .hero-actions{ display:flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 22px;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration:none;
+    border: 1px solid transparent;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn-solid{ background: var(--droid-green); color: #06120a; }
+  .btn-solid:hover{ transform: translateY(-1px); background: #63dd80; }
+  .btn-ghost{ border-color: var(--rule); color: var(--text-hi); }
+  .btn-ghost:hover{ border-color: var(--blue-glow); }
+
+  .stackrow{
+    margin-top: 56px;
+    display:flex; gap: 34px; flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .stack-item{ display:flex; flex-direction:column; gap:4px; }
+  .stack-item .n{ font-family:'Fraunces', serif; font-size:1.6rem; color: var(--text-hi); }
+  .stack-item .l{ font-size: 0.78rem; color: var(--text-low); font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 76px 0; border-top: 1px solid var(--rule); }
+  .s-head{ margin-bottom: 40px; }
+  .s-index{ font-family:'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-low); margin: 0 0 10px; }
+  h2.s-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 56px;
+  }
+  .about-grid p{ color: var(--text-mid); font-size: 1.02rem; margin: 0 0 18px; }
+  .about-grid p:last-child{ margin-bottom:0; }
+  .info-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 26px;
+    align-self: start;
+  }
+  .info-card dl{ margin:0; display:grid; grid-template-columns: auto 1fr; gap: 12px 16px; font-size: 0.9rem; }
+  .info-card dt{ color: var(--text-low); font-family:'JetBrains Mono', monospace; font-size: 0.78rem; padding-top:2px;}
+  .info-card dd{ margin:0; color: var(--text-hi); }
+  .info-card dd a{ text-decoration:none; border-bottom: 1px solid var(--blue-dim); }
+  .info-card dd a:hover{ border-color: var(--blue-glow); }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 48px;
+  }
+  .skill-group h3{
+    font-size: 0.82rem;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--sky-dusk-soft);
+    margin: 0 0 14px;
+    font-weight: 400;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap: 8px; }
+  .chip{
+    font-size: 0.85rem;
+    padding: 7px 13px;
+    background: var(--bg-panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--text-hi);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project{
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap: 36px;
+    padding: 34px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .project:first-of-type{ border-top: none; padding-top: 0; }
+  .project-meta{ display:flex; flex-direction: column; gap: 10px; }
+  .project-meta .pname{
+    font-family:'Fraunces', serif; font-size: 1.4rem; color: var(--text-hi);
+  }
+  .project-meta .ptype{ font-size: 0.78rem; color: var(--text-low); font-family:'JetBrains Mono', monospace; }
+  .project-meta .plinks{ display:flex; gap:14px; margin-top: 6px; }
+  .project-meta .plinks a{ font-size: 0.82rem; text-decoration:none; color: var(--blue-glow); }
+  .project-meta .plinks a:hover{ text-decoration: underline; }
+  .project-body p{ color: var(--text-mid); margin: 0 0 16px; }
+  .project-body ul{ margin: 0; padding-left: 18px; color: var(--text-mid); }
+  .project-body li{ margin-bottom: 8px; }
+  .project-body li::marker{ color: var(--droid-green); }
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 16px; }
+  .tag{
+    font-size: 0.74rem;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--text-low);
+    border: 1px solid var(--rule);
+    padding: 4px 9px;
+    border-radius: 3px;
+  }
+
+  /* ---------- REPOS ---------- */
+  .repo-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .repo-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 22px;
+    text-decoration:none;
+    display:block;
+    transition: border-color .15s ease;
+  }
+  .repo-card:hover{ border-color: var(--blue-dim); }
+  .repo-name{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--text-hi);
+    font-size: 0.92rem;
+    margin: 0 0 8px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .repo-name .dot{ width:8px; height:8px; border-radius:50%; background: var(--droid-green); display:inline-block; }
+  .repo-desc{ color: var(--text-low); font-size: 0.83rem; margin:0; }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-row{ display:flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .edu-degree{ font-family:'Fraunces', serif; font-size: 1.3rem; margin: 0 0 6px; }
+  .edu-school{ color: var(--text-mid); margin: 0 0 4px; }
+  .edu-cgpa{ font-family:'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--droid-green); }
+  .edu-years{ font-family:'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-low); white-space: nowrap; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding: 80px 0 60px; border-top: 1px solid var(--rule); }
+  .contact-lead{
+    font-family:'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    max-width: 16ch;
+    margin: 0 0 34px;
+  }
+  .contact-links{ display:flex; gap:22px; flex-wrap: wrap; margin-bottom: 54px; }
+  .contact-links a{
+    text-decoration:none;
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .contact-links a:hover{ color: var(--text-hi); border-color: var(--blue-glow); }
+  .foot-bottom{
+    display:flex; justify-content: space-between; align-items:center;
+    font-size: 0.78rem; color: var(--text-low);
+    font-family:'JetBrains Mono', monospace;
+    flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 720px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .skill-groups{ grid-template-columns: 1fr; }
+    .project{ grid-template-columns: 1fr; gap: 14px; }
+    .repo-grid{ grid-template-columns: 1fr; }
+    .navlinks{ display:none; }
+    .edu-row{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Ashwin<span>.</span></a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="skyline"></div>
+  <div class="wrap">
+    <p class="kicker">small steps, big dreams</p>
+    <h1 class="name">Ashwin Koli</h1>
+    <p class="role">Android Developer — Kotlin &amp; Java</p>
+    <p class="tagline">I build native Android apps from the ground up — clean UI, offline-first data layers, and code that holds together after the demo ends. Currently finishing my BCA and looking for my first full-time role.</p>
+    <div class="hero-actions">
+      <a class="btn btn-solid" href="#projects">See my work</a>
+      <a class="btn btn-ghost" href="mailto:ashwinkoli94@gmail.com">Get in touch</a>
+    </div>
+    <div class="stackrow">
+      <div class="stack-item"><span class="n">8.98</span><span class="l">CGPA / 10.00</span></div>
+      <div class="stack-item"><span class="n">Kotlin</span><span class="l">primary language</span></div>
+      <div class="stack-item"><span class="n">SQLite</span><span class="l">offline-first data</span></div>
+      <div class="stack-item"><span class="n">2026</span><span class="l">graduating</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="s-index">01 — About</p>
+      <h2 class="s-title">A quick rundown</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a detail-oriented Android developer with hands-on experience building native mobile apps in Kotlin and Java. My focus sits on the full mobile lifecycle — Android SDK fundamentals, SQLite-backed data layers, and interfaces that stay usable once real users start poking at them.</p>
+        <p>I care about getting the fundamentals right: proper activity and fragment lifecycle handling, clean object-oriented structure, and databases that don't fall over offline. I'm looking to bring that mindset to a team building real products, whether full-time or as an intern.</p>
+      </div>
+      <div class="info-card">
+        <dl>
+          <dt>Email</dt><dd><a href="mailto:ashwinkoli94@gmail.com">ashwinkoli94@gmail.com</a></dd>
+          <dt>Phone</dt><dd>+91 74993 21900</dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/Ashwin-koli" target="_blank" rel="noopener">github.com/Ashwin-koli</a></dd>
+          <dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/ashwinkoli" target="_blank" rel="noopener">linkedin.com/in/ashwinkoli</a></dd>
+          <dt>Languages</dt><dd>English, Hindi, Marathi</dd>
+          <dt>Status</dt><dd>Open to full-time roles &amp; internships</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="s-index">02 — Skills</p>
+      <h2 class="s-title">What I work with</h2>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="chips">
+          <span class="chip">Kotlin</span>
+          <span class="chip">Java</span>
+          <span class="chip">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Mobile Development</h3>
+        <div class="chips">
+          <span class="chip">Android SDK</span>
+          <span class="chip">Android Studio</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">Activity / Fragment Lifecycle</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="chips">
+          <span class="chip">Git</span>
+          <span class="chip">GitHub</span>
+          <span class="chip">Gradle</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Core Competencies</h3>
+        <div class="chips">
+          <span class="chip">OOP</span>
+          <span class="chip">Database Design</span>
+          <span class="chip">Debugging &amp; Testing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="s-index">03 — Projects</p>
+      <h2 class="s-title">Featured build</h2>
+    </div>
+
+    <div class="project">
+      <div class="project-meta">
+        <div class="pname">Fitness Guide</div>
+        <div class="ptype">Native Android App</div>
+        <div class="plinks">
+          <a href="https://github.com/Ashwin-koli" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <p>A personal fitness and wellness app that turns a phone into a pocket trainer — tailored workout routines and guided plans for weight loss, muscle building, and habit formation.</p>
+        <ul>
+          <li>Step-by-step exercise guidance that adjusts to the user's fitness level to keep engagement and usability high.</li>
+          <li>Local SQLite database storing user profiles, workout history, and progress — fully usable offline with fast reads.</li>
+          <li>Clean native UI built to cut onboarding time and keep the app feeling native, not templated.</li>
+          <li>Core logic written in Kotlin, using null safety and coroutines for background processing that doesn't block the UI.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Java</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Android SDK</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;">
+      <p class="s-index" style="margin-bottom:18px;">From GitHub</p>
+      <div class="repo-grid">
+        <a class="repo-card" href="https://github.com/Ashwin-koli/Portfolio" target="_blank" rel="noopener">
+          <p class="repo-name"><span class="dot"></span>Portfolio</p>
+          <p class="repo-desc">HTML — earlier version of this personal portfolio site.</p>
+        </a>
+        <a class="repo-card" href="https://github.com/Ashwin-koli/my-website" target="_blank" rel="noopener">
+          <p class="repo-name"><span class="dot"></span>my-website</p>
+          <p class="repo-desc">CSS — simple, static demo website built while learning front-end layout.</p>
+        </a>
+        <a class="repo-card" href="https://github.com/Ashwin-koli/my-website1" target="_blank" rel="noopener">
+          <p class="repo-name"><span class="dot"></span>my-website1</p>
+          <p class="repo-desc">Follow-up static site iteration.</p>
+        </a>
+        <a class="repo-card" href="https://github.com/Ashwin-koli/my-website121" target="_blank" rel="noopener">
+          <p class="repo-name"><span class="dot"></span>my-website121</p>
+          <p class="repo-desc">Another static site build for practice.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="s-head">
+      <p class="s-index">04 — Education</p>
+      <h2 class="s-title">Background</h2>
+    </div>
+    <div class="edu-row">
+      <div>
+        <p class="edu-degree">Bachelor of Computer Applications (BCA)</p>
+        <p class="edu-school">Dadasaheb Dr. Suresh G. Patil College, Chopda</p>
+        <p class="edu-cgpa">CGPA: 8.98 / 10.00</p>
+      </div>
+      <p class="edu-years">2023 — 2026</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <p class="contact-lead">Building better apps, one line at a time. Let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:ashwinkoli94@gmail.com">ashwinkoli94@gmail.com</a>
+      <a href="tel:+917499321900">+91 74993 21900</a>
+      <a href="https://github.com/Ashwin-koli" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/ashwinkoli" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Ashwin Koli</span>
+      <span>Android · Kotlin · Compose</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
